@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentsGrades.Database;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,14 @@ namespace StudentsGrades
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            using (DatabaseContext ctx = new DatabaseContext())
+            {
+                ctx.Database.EnsureCreated();
+            }
+           
+        }
     }
 }

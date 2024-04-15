@@ -28,17 +28,6 @@ namespace StudentsGrades.Database
             modelBuilder.Entity<StudentModel>().Property(e => e.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<GradeModel>().Property(e => e.Id).ValueGeneratedOnAdd();
 
-            var user = new StudentModel()
-            {
-                Id = 1,
-                FirstName = "Lily",
-                LastName = "Ivanova",
-                FacultyNumber = "121221023"
-
-            };
-            modelBuilder.Entity<StudentModel>()
-                .HasData(user);
-
             var grade = new GradeModel()
             {
                 Id = 1,
@@ -46,11 +35,32 @@ namespace StudentsGrades.Database
                 Value = 5,
                 Year = new DateTime(2023, 4, 15),
                 StudentId = 1,
-                Student = user
-                
-            
 
             };
+            modelBuilder.Entity<GradeModel>().HasData(grade);
+
+            var student  = new StudentModel()
+            {
+                Id = 1,
+                FirstName = "Lily",
+                LastName = "Ivanova",
+                FacultyNumber = "121221023",
+               
+
+            };
+           
+            modelBuilder.Entity<StudentModel>()
+                .HasData(student);
+
+            modelBuilder.Entity<StudentModel>()
+             .HasMany(s => s.Grades)
+             .WithOne(g => g.Student)
+             .HasForeignKey(g => g.StudentId)
+             .IsRequired();
+
+
+
+
         }
 
     }

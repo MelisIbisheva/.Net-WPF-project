@@ -12,6 +12,10 @@ namespace StudentsGrades.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FacultyNumber { get; set; }
-       
+        public List<GradeModel> Grades { get; set; }
+        public StudentModel() { 
+            Grades = new List<GradeModel>();
+        }
+
     }
 }
