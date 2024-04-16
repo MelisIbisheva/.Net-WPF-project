@@ -1,0 +1,51 @@
+﻿<Window x:Class="StudentsGrades.View.ViewStudentsGrades"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudentsGrades.View"
+        xmlns:vm="clr-namespace:StudentsGrades.ViewModel"
+        mc:Ignorable="d"
+        Title="Students grades" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:StudentsGradesViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Content="Go back" Command="{Binding BackToMainWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Margin="10"/>
+        <!-- Filter Subject and Year -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <TextBlock Text="Filter by Subject:" VerticalAlignment="Center" Margin="5"/>
+            <TextBox Text="{Binding FilterSubject, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="5"/>
+            <TextBlock Text="Filter by Year:" VerticalAlignment="Center" Margin="5"/>
+            <TextBox Text="{Binding FilterYear, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="5"/>
+            <Button Content="Filter" Command="{Binding FilterGradesCommand}" Margin="5"/>
+        </StackPanel>
+
+        
+
+
+        <!-- List students and their grades -->
+        <ListView Grid.Row="2" ItemsSource="{Binding Students}">
+            <ListView.View>
+                <GridView>
+                    <!-- Student data  -->
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}"/>
+                    <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}"/>
+                    <GridViewColumn Header="Faculty Number" DisplayMemberBinding="{Binding FacultyNumber}"/>
+                    <!-- Grade data-->
+                    <GridViewColumn Header="Subject" DisplayMemberBinding="{Binding Grades[0].Subject}"/>
+                    <GridViewColumn Header="Value" DisplayMemberBinding="{Binding Grades[0].Value}"/>
+                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Grades[0].Date}"/>
+                    <GridViewColumn Header="Year" DisplayMemberBinding="{Binding Grades[0].Year}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

@@ -33,7 +33,8 @@ namespace StudentsGrades.Database
                 Id = 1,
                 Subject = "Math",
                 Value = 5,
-                Year = new DateTime(2023, 4, 15),
+                Year = 2023,
+                Date = new DateTime(2023, 4, 15),
                 StudentId = 1,
 
             };

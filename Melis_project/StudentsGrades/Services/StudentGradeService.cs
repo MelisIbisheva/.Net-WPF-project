@@ -41,7 +41,16 @@ namespace StudentsGrades.Services
             }
         }
 
-        public static List<GradeModel> FilterGrades(string subject)
+        public static bool StudentExists(string facultyNumber)
+        {
+            using (DatabaseContext ctx = new DatabaseContext())
+            {
+               
+                return ctx.Students.Any(s => s.FacultyNumber == facultyNumber);
+            }
+        }
+
+        public static List<GradeModel> FilterGradesBySubject(string subject)
         {
             using (DatabaseContext ctx = new DatabaseContext())
             {

@@ -23,6 +23,7 @@ namespace StudentsGrades
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindow();
         }
     }
 }

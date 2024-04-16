@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:StudentsGrades"
         xmlns:vm="clr-namespace:StudentsGrades.ViewModel"
         mc:Ignorable="d"
-        Title="Students grades" Height="450" Width="800">
+        Title="Students" Height="450" Width="800">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
@@ -17,31 +17,23 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <TextBox Text="{Binding FilterSubject, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
-            <TextBox Text="{Binding FilterYear, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="5"/>
-            <Button Content="Filter" Command="{Binding FilterGradesCommand}" Margin="5"/>
-        </StackPanel>
+            <!-- Button for viewing students grades -->
+            <Button Content="View students grades" Command="{Binding OpenStudentGradesCommand}" Margin="10"/>
 
+            <!-- Button for adding a new student -->
+            <Button Content="Add New Student" Command="{Binding AddNewStudentCommand}" Margin="10"/>
+        </StackPanel>
+        <!-- List students and their grades -->
         <ListView Grid.Row="1" ItemsSource="{Binding Students}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding FirstName}"/>
-                        <TextBlock Text="{Binding LastName}"/>
-                        <ListView ItemsSource="{Binding Grades}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Subject}"/>
-                                        <TextBlock Text="{Binding Value}"/>
-                                        <TextBlock Text="{Binding Year}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+            <ListView.View>
+                <GridView>
+                    <!-- Student data  -->
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}"/>
+                    <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}"/>
+                    <GridViewColumn Header="Faculty Number" DisplayMemberBinding="{Binding FacultyNumber}"/>
+                </GridView>
+            </ListView.View>
         </ListView>
     </Grid>
 </Window>

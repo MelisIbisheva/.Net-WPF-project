@@ -1,6 +1,7 @@
 ﻿using StudentsGrades.Command;
 using StudentsGrades.Model;
 using StudentsGrades.Services;
+using StudentsGrades.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +16,11 @@ namespace StudentsGrades.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private int _selectedStudentId;
+        private string _selectedStudentFirstName;
+        private string _selectedStudentLastName;
+        private string _selectedStudentFacultyNumber;
+       
         private ObservableCollection<StudentModel> _students;
         public ObservableCollection<StudentModel> Students
         {
@@ -26,64 +32,78 @@ namespace StudentsGrades.ViewModel
             }
         }
 
-        private List<GradeModel> _filteredGrades;
-        public List<GradeModel> FilteredGrades
+
+        public int SelectedStudentId
         {
-            get { return _filteredGrades; }
+            get { return _selectedStudentId; }
             set
             {
-                _filteredGrades = value;
+                _selectedStudentId = value;
                 OnPropertyChanged();
             }
         }
 
-        private string _filterSubject;
-        public string FilterSubject
+        public string SelectedStudentFirstName
         {
-            get { return _filterSubject; }
+            get { return _selectedStudentFirstName; }
             set
             {
-                _filterSubject = value;
+                _selectedStudentFirstName = value;
                 OnPropertyChanged();
-                FilterGradesCommand.Execute(null);
             }
         }
 
-        private int _filterYear;
-        public int FilterYear
+        public string SelectedStudentLastName
         {
-            get { return _filterYear; }
+            get { return _selectedStudentLastName; }
             set
             {
-                _filterYear = value;
+                _selectedStudentLastName = value;
                 OnPropertyChanged();
-                FilterGradesCommand.Execute(null);
             }
         }
 
-        public ICommand FilterGradesCommand { get; }
+        public string SelectedStudentFacultyNumber
+        {
+            get { return _selectedStudentFacultyNumber; }
+            set
+            {
+                _selectedStudentFacultyNumber = value;
+                OnPropertyChanged();
+            }
+        }
+       
+ 
+        
+
+       
+
+       
+        public ICommand OpenStudentGradesCommand { get; }
+        public ICommand AddNewStudentCommand {  get; }
+        private void OpenStudentGrades(object parameter)
+        {
+            
+            var studentGradesWindow = new ViewStudentsGrades();
+            studentGradesWindow.Show();
+        }
+
+        private void AddNewStudent(object parameter)
+        {
+            var addNewStudentWindow = new AddNewStudentWindow();
+            addNewStudentWindow.Show();
+        }
 
         public MainViewModel()
         {
-            FilterGradesCommand = new RelayCommand(FilterGrades);
+            OpenStudentGradesCommand = new RelayCommand(OpenStudentGrades);
             Students = new ObservableCollection<StudentModel>(StudentGradeService.GetAllUsers());
+            AddNewStudentCommand = new RelayCommand(AddNewStudent);
 
             
         }
 
        
-
-        private void FilterGrades(object parameter)
-        {
-            if (!string.IsNullOrWhiteSpace(FilterSubject))
-            {
-                FilteredGrades = StudentGradeService.FilterGrades(FilterSubject);
-            }
-            else
-            {
-                FilteredGrades = null;
-            }
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
