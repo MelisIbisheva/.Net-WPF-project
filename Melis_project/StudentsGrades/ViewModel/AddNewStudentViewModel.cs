@@ -3,6 +3,7 @@ using StudentsGrades.Model;
 using StudentsGrades.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -21,6 +22,7 @@ namespace StudentsGrades.ViewModel
         private string _message;
 
         public AddNewStudentViewModel() {
+
             AddStudentCommand = new RelayCommand(AddStudent);
             CloseWindowCommand = new RelayCommand(CloseWindow);
         }
@@ -63,7 +65,7 @@ namespace StudentsGrades.ViewModel
                 OnPropertyChanged();
             }
         }
-        public ICommand AddStudentCommand ;
+        public ICommand AddStudentCommand { get; }
         private void AddStudent(object parameter)
         {
             if (!string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName) && !string.IsNullOrEmpty(FacultyNumber))
@@ -95,6 +97,11 @@ namespace StudentsGrades.ViewModel
             else
             {
                 Message = "Please fill in all fields to add a student!";
+            }
+            var mainViewModel = Application.Current.MainWindow.DataContext as MainViewModel;
+            if (mainViewModel != null)
+            {
+                mainViewModel.Students = new ObservableCollection<StudentModel>(StudentGradeService.GetAllUsers());
             }
 
         }

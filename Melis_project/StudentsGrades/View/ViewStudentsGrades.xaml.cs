@@ -23,6 +23,7 @@ namespace StudentsGrades.View
         public ViewStudentsGrades()
         {
             InitializeComponent();
+            DataContext = new StudentsGradesViewModel();
         }
     }
 }
