@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentsGrades.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,7 @@ namespace StudentsGrades
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindow();
+            DataContext = new MainViewModel();
         }
     }
 }

@@ -20,6 +20,7 @@
             <TextBlock>Faculty Number</TextBlock>
             <TextBox Text="{Binding FacultyNumber}"></TextBox>
             <Button Content="Add" Command="{Binding AddStudentCommand}"/>
+            <Button Content="Close" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
             <TextBlock Text="{Binding Message}"/>
         </StackPanel>
     </Grid>

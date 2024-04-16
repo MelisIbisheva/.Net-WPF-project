@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace StudentsGrades.ViewModel
@@ -19,6 +20,10 @@ namespace StudentsGrades.ViewModel
         private string _facultyNumber;
         private string _message;
 
+        public AddNewStudentViewModel() {
+            AddStudentCommand = new RelayCommand(AddStudent);
+            CloseWindowCommand = new RelayCommand(CloseWindow);
+        }
         public string FirstName
         {
             get => _firstName;
@@ -58,7 +63,7 @@ namespace StudentsGrades.ViewModel
                 OnPropertyChanged();
             }
         }
-        public ICommand AddStudentCommand => new RelayCommand(AddStudent);
+        public ICommand AddStudentCommand ;
         private void AddStudent(object parameter)
         {
             if (!string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName) && !string.IsNullOrEmpty(FacultyNumber))
@@ -84,11 +89,22 @@ namespace StudentsGrades.ViewModel
                     FirstName = "";
                     LastName = "";
                     FacultyNumber = "";
+                    
                 }
             }
             else
             {
                 Message = "Please fill in all fields to add a student!";
+            }
+
+        }
+
+        public ICommand CloseWindowCommand { get; }
+        private void CloseWindow(object parameter)
+        {
+            if (parameter is Window window)
+            {
+                window.Close();
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
