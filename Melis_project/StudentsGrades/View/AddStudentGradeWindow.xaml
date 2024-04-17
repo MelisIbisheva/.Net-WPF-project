@@ -1,0 +1,30 @@
+﻿<Window x:Class="StudentsGrades.View.AddStudentGradeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudentsGrades.View"
+        xmlns:vm="clr-namespace:StudentsGrades.ViewModel"
+        mc:Ignorable="d"
+        Title="AddStudentGradeWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:AddStudentGradeViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <StackPanel Margin="10">
+            <TextBlock>Student Id:</TextBlock>
+            <TextBox Text="{Binding StudentId}" Margin="0,0,0,5"/>
+            <TextBlock>Subject:</TextBlock>
+            <TextBox Text="{Binding Subject}" Margin="0,0,0,5"/>
+            <TextBlock>Value:</TextBlock>
+            <TextBox Text="{Binding Value}" Margin="0,0,0,5"/>
+            <TextBlock>Year:</TextBlock>
+            <TextBox Text="{Binding Year}" Margin="0,0,0,5"/>
+            <TextBlock>Date:</TextBlock>
+            <DatePicker SelectedDate="{Binding Date}" Margin="0,0,0,5"/>
+            <Button Content="Add Grade" Command="{Binding AddGradeCommand}" Margin="0,10,0,5"/>
+            <Button Content="Close" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+            <TextBlock Text="{Binding Message}" Margin="0,10,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window>

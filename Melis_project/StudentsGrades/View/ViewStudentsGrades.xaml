@@ -25,13 +25,14 @@
             <TextBlock Text="Filter by Year:" VerticalAlignment="Center" Margin="5"/>
             <TextBox Text="{Binding FilterYear, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="5"/>
             <Button Content="Filter" Command="{Binding FilterGradesCommand}" Margin="5"/>
+            <Button Content="Add Student Grade" Command="{Binding AddStudentGradeCommand}" Margin="10"/>
         </StackPanel>
 
         
 
 
         <!-- List students and their grades -->
-        <ListView Grid.Row="2" ItemsSource="{Binding Students}">
+        <ListView Grid.Row="2" ItemsSource="{Binding Students}" SelectionChanged="ListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <!-- Student data  -->

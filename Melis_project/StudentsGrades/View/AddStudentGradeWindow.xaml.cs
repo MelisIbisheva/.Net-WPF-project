@@ -1,5 +1,4 @@
-﻿using StudentsGrades.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,21 +11,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using StudentsGrades.ViewModel;
 
 namespace StudentsGrades.View
 {
     /// <summary>
-    /// Interaction logic for ViewStudentsGrades.xaml
+    /// Interaction logic for AddStudentGradeWindow.xaml
     /// </summary>
-    public partial class ViewStudentsGrades : Window
+    public partial class AddStudentGradeWindow : Window
     {
-        public ViewStudentsGrades()
+        public AddStudentGradeWindow()
         {
             InitializeComponent();
-            DataContext = new StudentsGradesViewModel();
-
+            DataContext = new AddStudentGradeViewModel();
         }
-
-        
     }
 }

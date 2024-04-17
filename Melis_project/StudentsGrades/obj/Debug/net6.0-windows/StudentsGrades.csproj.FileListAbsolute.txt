@@ -72,3 +72,5 @@ D:\github_repository_clone\.Net-C-WPF-project\Melis_project\StudentsGrades\obj\D
 D:\github_repository_clone\.Net-C-WPF-project\Melis_project\StudentsGrades\obj\Debug\net6.0-windows\View\ViewStudentsGrades.baml
 D:\github_repository_clone\.Net-C-WPF-project\Melis_project\StudentsGrades\obj\Debug\net6.0-windows\View\AddNewStudentWindow.g.cs
 D:\github_repository_clone\.Net-C-WPF-project\Melis_project\StudentsGrades\obj\Debug\net6.0-windows\View\AddNewStudentWindow.baml
+D:\github_repository_clone\.Net-C-WPF-project\Melis_project\StudentsGrades\obj\Debug\net6.0-windows\View\AddStudentGradeWindow.g.cs
+D:\github_repository_clone\.Net-C-WPF-project\Melis_project\StudentsGrades\obj\Debug\net6.0-windows\View\AddStudentGradeWindow.baml

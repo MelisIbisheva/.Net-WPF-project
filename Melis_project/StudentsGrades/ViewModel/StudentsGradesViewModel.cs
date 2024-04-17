@@ -1,6 +1,7 @@
 ﻿using StudentsGrades.Command;
 using StudentsGrades.Model;
 using StudentsGrades.Services;
+using StudentsGrades.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,6 +26,7 @@ namespace StudentsGrades.ViewModel
         private DateTime _selectedGradeDate;
         private int _selectedGradeYear;
         private ObservableCollection<StudentModel> _students;
+        
        
         public StudentsGradesViewModel()
         {
@@ -32,6 +34,7 @@ namespace StudentsGrades.ViewModel
             FilterGradesCommand = new RelayCommand(FilterGrades);
             Students = new ObservableCollection<StudentModel>(StudentGradeService.GetAllUsers());
             BackToMainWindowCommand = new RelayCommand(BackToMainWindow);
+            AddStudentGradeCommand = new RelayCommand(AddStudentGrade);
 
 
         }
@@ -187,6 +190,14 @@ namespace StudentsGrades.ViewModel
                 window.Close();
             }
         }
-        
+
+        public ICommand AddStudentGradeCommand { get; }
+
+        private void AddStudentGrade(object parameter)
+        {
+            var addStudentGradeWindow = new AddStudentGradeWindow();
+            addStudentGradeWindow.Show();
+        }
+
     }
 }
