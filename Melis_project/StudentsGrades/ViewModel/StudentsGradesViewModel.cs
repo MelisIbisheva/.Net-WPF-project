@@ -39,6 +39,7 @@ namespace StudentsGrades.ViewModel
             AddStudentGradeCommand = new RelayCommand(AddStudentGrade);
             FilterCommand = new RelayCommand(Filter);
             ClearFiltersCommand = new RelayCommand(ClearFilters);
+           
 
         }
 
@@ -252,6 +253,7 @@ namespace StudentsGrades.ViewModel
             int lastYear = filteredStudents.SelectMany(student => student.Grades).Max(grade => grade.Year);
             return lastYear;
         }
+       
 
 
 

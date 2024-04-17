@@ -81,6 +81,14 @@ namespace StudentsGrades.ViewModel
        
         public ICommand OpenStudentGradesCommand { get; }
         public ICommand AddNewStudentCommand {  get; }
+        public ICommand ViewStudentObjectCommand { get; }
+
+        private void ViewStudentObject(object parameter)
+        {
+            var ViewStudentObjectWindow = new ViewStudentObjectWindow();
+            ViewStudentObjectWindow.Show();
+
+        }
         private void OpenStudentGrades(object parameter)
         {
             
@@ -99,11 +107,10 @@ namespace StudentsGrades.ViewModel
             OpenStudentGradesCommand = new RelayCommand(OpenStudentGrades);
             Students = new ObservableCollection<StudentModel>(StudentGradeService.GetAllUsers());
             AddNewStudentCommand = new RelayCommand(AddNewStudent);
+            ViewStudentObjectCommand = new RelayCommand(ViewStudentObject);
 
-            
+
         }
-
-       
 
         public event PropertyChangedEventHandler PropertyChanged;
 
