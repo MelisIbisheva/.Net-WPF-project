@@ -21,27 +21,18 @@
 
         <Button Content="Go back" Command="{Binding BackToMainWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Margin="10" Grid.Row="0"/>
 
-
-        <!-- Filter by Year -->
+        <!-- Filter Controls -->
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <TextBlock Text="Filter by Year:" VerticalAlignment="Center" Margin="5"/>
+            <TextBlock Text="Year:" VerticalAlignment="Center" Margin="5"/>
             <TextBox Text="{Binding FilterYear, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="5"/>
-            <Button Content="Filter by Year" Command="{Binding FilterByYearCommand}" Margin="5"/>
-            <TextBlock Text="Filter by Faculty Number:" VerticalAlignment="Center" Margin="5"/>
+            <TextBlock Text="Faculty Number:" VerticalAlignment="Center" Margin="5"/>
             <TextBox Text="{Binding FilterFacultyNumber, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="5"/>
-            <Button Content="Filter by Faculty Number" Command="{Binding FilterByFacultyNumberCommand}" Margin="5"/>
-
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="2">
-            <TextBlock Text="Filter by Subject:" VerticalAlignment="Center"/>
+            <TextBlock Text="Subject:" VerticalAlignment="Center" Margin="5"/>
             <TextBox Text="{Binding FilterSubject, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="5"/>
-            <Button Content="Filter" Command="{Binding FilterBySubjectCommand}" Margin="5"/>
+            <Button Content="Filter" Command="{Binding FilterCommand}" Margin="5"/>
             <Button Content="Clear Filters" Command="{Binding ClearFiltersCommand}" Margin="5"/>
             <Button Content="Add grade" Command="{Binding AddStudentGradeCommand}" Margin="5"/>
         </StackPanel>
-
-
-
 
         <!-- List students and their grades -->
         <ListView Grid.Row="3" ItemsSource="{Binding Students, Mode=TwoWay}" SelectionChanged="ListView_SelectionChanged" Margin="-2,0,2,0">

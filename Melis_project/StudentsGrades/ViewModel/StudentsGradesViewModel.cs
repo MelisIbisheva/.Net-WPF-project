@@ -26,20 +26,19 @@ namespace StudentsGrades.ViewModel
         private DateTime _selectedGradeDate;
         private int _selectedGradeYear;
         private ObservableCollection<StudentModel> _students;
-        
-       
+        private int _filterYear;
+        private string _filterFacultyNumber;
+        private string _filterSubject;
+
+
         public StudentsGradesViewModel()
         {
             
             Students = new ObservableCollection<StudentModel>(StudentGradeService.GetAllUsers());
             BackToMainWindowCommand = new RelayCommand(BackToMainWindow);
             AddStudentGradeCommand = new RelayCommand(AddStudentGrade);
-            FilterByYearCommand = new RelayCommand(FilterByYear);
-            FilterByFacultyNumberCommand = new RelayCommand(FilterByFacultyNumber);
-            FilterBySubjectCommand = new RelayCommand(FilterBySubject);
+            FilterCommand = new RelayCommand(Filter);
             ClearFiltersCommand = new RelayCommand(ClearFilters);
-            
-
 
         }
 
@@ -141,10 +140,6 @@ namespace StudentsGrades.ViewModel
         }
         
      
-        
-
-        
-        public ICommand FilterGradesCommand { get; }
         public ICommand BackToMainWindowCommand { get; }
         private void BackToMainWindow(object parameter)
         {
@@ -163,7 +158,7 @@ namespace StudentsGrades.ViewModel
             Students = new ObservableCollection<StudentModel>(StudentGradeService.GetAllUsers());
         }
 
-        private int _filterYear;
+
         public int FilterYear
         {
             get { return _filterYear; }
@@ -173,21 +168,7 @@ namespace StudentsGrades.ViewModel
                 OnPropertyChanged();
             }
         }
-        public ICommand FilterByYearCommand { get; }
-        private void FilterByYear(object parameter)
-        {
-            if (FilterYear != 0)
-            {
-                Students = new ObservableCollection<StudentModel>(
-                    StudentGradeService.FilterStudentsAndGradesByYear(FilterYear));
-            }
-            else
-            {
-                Students = new ObservableCollection<StudentModel>(StudentGradeService.GetAllUsers());
-            }
-        }
 
-        private string _filterFacultyNumber;
         public string FilterFacultyNumber
         {
             get { return _filterFacultyNumber; }
@@ -195,26 +176,9 @@ namespace StudentsGrades.ViewModel
             {
                 _filterFacultyNumber = value;
                 OnPropertyChanged();
-                FilterByFacultyNumberCommand.Execute(null);
             }
         }
 
-        public ICommand FilterByFacultyNumberCommand { get; }
-
-        private void FilterByFacultyNumber(object parameter)
-        {
-            if (!string.IsNullOrEmpty(FilterFacultyNumber))
-            {
-                Students = new ObservableCollection<StudentModel>(
-                    StudentGradeService.FilterStudentsAndGradesByFacultyNumber(FilterFacultyNumber));
-            }
-            else
-            {
-                Students = new ObservableCollection<StudentModel>(StudentGradeService.GetAllUsers());
-            }
-        }
-
-        private string _filterSubject;
         public string FilterSubject
         {
             get { return _filterSubject; }
@@ -222,26 +186,33 @@ namespace StudentsGrades.ViewModel
             {
                 _filterSubject = value;
                 OnPropertyChanged();
-                FilterBySubjectCommand.Execute(null);
             }
         }
-        public ICommand FilterBySubjectCommand { get; }
 
-        private void FilterBySubject(object parameter)
+        public ICommand FilterCommand { get; }
+        private void Filter(object parameter)
         {
+            var filteredStudents = StudentGradeService.GetAllUsers();
+
+            if (FilterYear != 0)
+            {
+                filteredStudents = filteredStudents.Where(student => student.Grades.Any(grade => grade.Year == FilterYear)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(FilterFacultyNumber))
+            {
+                filteredStudents = filteredStudents.Where(student => student.FacultyNumber == FilterFacultyNumber).ToList();
+            }
+
             if (!string.IsNullOrEmpty(FilterSubject))
             {
-                Students = new ObservableCollection<StudentModel>(
-                    StudentGradeService.FilterBySubject(FilterSubject));
+                filteredStudents = filteredStudents.Where(student => student.Grades.Any(grade => grade.Subject == FilterSubject)).ToList();
             }
-            else
-            {
-                Students = new ObservableCollection<StudentModel>(StudentGradeService.GetAllUsers());
-            }
+
+            Students = new ObservableCollection<StudentModel>(filteredStudents);
         }
 
         public ICommand ClearFiltersCommand { get; }
-
         private void ClearFilters(object parameter)
         {
             FilterYear = 0;
@@ -249,6 +220,7 @@ namespace StudentsGrades.ViewModel
             FilterSubject = null;
             Students = new ObservableCollection<StudentModel>(StudentGradeService.GetAllUsers());
         }
+
 
     }
 

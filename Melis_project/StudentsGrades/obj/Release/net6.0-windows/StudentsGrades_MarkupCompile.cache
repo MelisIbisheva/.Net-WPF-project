@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NET;NET6_0;NETCOREAPP
 D:\github_repository_clone\.Net-C-WPF-project\Melis_project\StudentsGrades\App.xaml
-1-487866684
+41467494242
 
-9-1779244954
+15-1824454423
 212-57643844
-View\MainWindow.xaml;
+View\AddNewStudentWindow.xaml;View\AddStudentGradeWindow.xaml;View\MainWindow.xaml;View\ViewStudentsGrades.xaml;
 
 True
 
