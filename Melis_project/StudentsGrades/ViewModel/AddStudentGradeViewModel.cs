@@ -10,6 +10,7 @@ using System.Windows;
 using StudentsGrades.Command;
 using StudentsGrades.Model;
 using StudentsGrades.Services;
+using System.Collections.ObjectModel;
 
 namespace StudentsGrades.ViewModel
 {
@@ -95,6 +96,7 @@ namespace StudentsGrades.ViewModel
             }
         }
         public ICommand AddGradeCommand { get; }
+       
         private void AddGrade(object parameter)
         {
             if (string.IsNullOrWhiteSpace(Subject) || Value == 0 || Year == 0 || Date == default(DateTime) || StudentId == 0)
@@ -115,12 +117,15 @@ namespace StudentsGrades.ViewModel
                 };
 
                 StudentGradeService.AddGradeToStudent(StudentId, newGrade);
+               
                 Message = "Grade successfully added!";
                 Subject = "";
                 Value = 0;
                 Year = 0;
                 Date = DateTime.Now;
                 StudentId = 0;
+
+                
             }
              
         }

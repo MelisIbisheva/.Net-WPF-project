@@ -50,13 +50,46 @@ namespace StudentsGrades.Services
             }
         }
 
-        public static List<GradeModel> FilterGradesBySubject(string subject)
+        public static List<StudentModel> FilterStudentsAndGradesByYear(int year)
         {
-            using (DatabaseContext ctx = new DatabaseContext())
-            {
-                return ctx.Grades.Where(g => g.Subject == subject).ToList();
-            }
+            return GetAllUsers()
+                .Select(student =>
+                {
+                    student.Grades = student.Grades
+                        .Where(grade => grade.Date.Year == year)
+                        .ToList();
+                    return student;
+                })
+                .Where(student => student.Grades.Any())
+                .ToList();
         }
+
+        public static List<StudentModel> FilterStudentsAndGradesByFacultyNumber(string facultyNumber)
+        {
+            return GetAllUsers()
+                .Where(student => student.FacultyNumber == facultyNumber)
+                .ToList();
+        }
+
+        public static List<StudentModel> FilterBySubject(string subject)
+        {
+           
+            return GetAllUsers()
+                .Select(student =>
+                {
+                    student.Grades = student.Grades
+                        .Where(grade => grade.Subject.Equals(subject, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                    return student;
+                })
+                .Where(student => student.Grades.Any()) 
+                .ToList();
+        }
+
+
+
+
+
     }
 
 }

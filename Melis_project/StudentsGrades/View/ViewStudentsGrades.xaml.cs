@@ -27,6 +27,9 @@ namespace StudentsGrades.View
 
         }
 
-        
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
     }
 }
