@@ -49,7 +49,7 @@ namespace StudentsGrades.Services
                 return ctx.Students.Any(s => s.FacultyNumber == facultyNumber);
             }
         }
-
+/*
         public static List<StudentModel> FilterStudentsAndGradesByYear(int year)
         {
             return GetAllUsers()
@@ -85,6 +85,7 @@ namespace StudentsGrades.Services
                 .Where(student => student.Grades.Any()) 
                 .ToList();
         }
+*/
 
 
 

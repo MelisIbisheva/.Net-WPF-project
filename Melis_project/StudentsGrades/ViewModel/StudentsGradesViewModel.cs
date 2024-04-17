@@ -194,10 +194,7 @@ namespace StudentsGrades.ViewModel
         {
             var filteredStudents = StudentGradeService.GetAllUsers();
 
-            if (FilterYear != 0)
-            {
-                filteredStudents = filteredStudents.Where(student => student.Grades.Any(grade => grade.Year == FilterYear)).ToList();
-            }
+            
 
             if (!string.IsNullOrEmpty(FilterFacultyNumber))
             {
@@ -208,6 +205,23 @@ namespace StudentsGrades.ViewModel
             {
                 filteredStudents = filteredStudents.Where(student => student.Grades.Any(grade => grade.Subject == FilterSubject)).ToList();
             }
+            if (FilterYear != 0)
+                
+            {
+                bool isFilterYearContained = filteredStudents.Any(student => student.Grades.Any(grade => grade.Year == FilterYear));
+                if (isFilterYearContained)
+                {
+                    filteredStudents = filteredStudents.Where(student => student.Grades.Any(grade => grade.Year == FilterYear)).ToList();
+                }
+                else
+                {
+                    int lastYearWithResults = FindLastYearWithResults(StudentGradeService.GetAllUsers(), FilterFacultyNumber, FilterSubject);
+                    
+                    filteredStudents = filteredStudents.Where(student => student.Grades.Any(grade => grade.Year == lastYearWithResults)).ToList();
+                }
+            }
+
+            
 
             Students = new ObservableCollection<StudentModel>(filteredStudents);
         }
@@ -220,6 +234,25 @@ namespace StudentsGrades.ViewModel
             FilterSubject = null;
             Students = new ObservableCollection<StudentModel>(StudentGradeService.GetAllUsers());
         }
+
+        private int FindLastYearWithResults(IEnumerable<StudentModel> students, string facultyNumber = null, string subject = null)
+        {
+            var filteredStudents = students;
+
+            if (!string.IsNullOrEmpty(facultyNumber))
+            {
+                filteredStudents = filteredStudents.Where(student => student.FacultyNumber == facultyNumber).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(subject))
+            {
+                filteredStudents = filteredStudents.Where(student => student.Grades.Any(grade => grade.Subject == subject)).ToList();
+            }
+
+            int lastYear = filteredStudents.SelectMany(student => student.Grades).Max(grade => grade.Year);
+            return lastYear;
+        }
+
 
 
     }
