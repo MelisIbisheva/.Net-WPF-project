@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\StudentsGrades",
+    "\\StudentsGrades\\View",
+    "\\StudentsGrades\\ViewModel"
   ],
-  "SelectedNode": "\\Melis_project.sln",
+  "SelectedNode": "\\StudentsGrades\\View\\ViewStudentsGrades.xaml",
   "PreviewInSolutionExplorer": false
 }
