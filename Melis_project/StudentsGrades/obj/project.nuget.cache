@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "p/TYn7/g/t5jv+0UiASjXjistfFQnEw+OCyVTvE51pwz8zHyoT9MvyqHLAoC4z5LvW1qRWPsoYJ5gKm+pHDiOw==",
+  "dgSpecHash": "DsP8PMlA9OQ8wjSM16hT2Jgxm76d5HH77NR5AzjpfKCc+vBhRyyASdODi95Jm+01jmZSytqqgjZxrH/QxXhTYw==",
   "success": true,
-  "projectFilePath": "D:\\github_repository_clone\\.Net-C-WPF-project\\Melis_project\\StudentsGrades\\StudentsGrades.csproj",
+  "projectFilePath": "D:\\github_repository_clone\\.Net-WPF-project\\Melis_project\\StudentsGrades\\StudentsGrades.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\meliska\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\meliska\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.18\\microsoft.data.sqlite.core.7.0.18.nupkg.sha512",

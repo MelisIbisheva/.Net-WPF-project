@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\github_repository_clone\.Net-C-WPF-project\Melis_project\StudentsGrades\obj\Debug\net6.0-windows\
+D:\github_repository_clone\.Net-WPF-project\Melis_project\StudentsGrades\obj\Debug\net6.0-windows\
 StudentsGrades
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-D:\github_repository_clone\.Net-C-WPF-project\Melis_project\StudentsGrades\App.xaml
+D:\github_repository_clone\.Net-WPF-project\Melis_project\StudentsGrades\App.xaml
 5-1273117329
 
 19-22809174
 212-57643844
 View\AddNewStudentWindow.xaml;View\AddStudentGradeWindow.xaml;View\MainWindow.xaml;View\ViewStudentObjectWindow.xaml;View\ViewStudentsGrades.xaml;
 
-True
+False
 
