@@ -49,47 +49,8 @@ namespace StudentsGrades.Services
                 return ctx.Students.Any(s => s.FacultyNumber == facultyNumber);
             }
         }
-/*
-        public static List<StudentModel> FilterStudentsAndGradesByYear(int year)
-        {
-            return GetAllUsers()
-                .Select(student =>
-                {
-                    student.Grades = student.Grades
-                        .Where(grade => grade.Date.Year == year)
-                        .ToList();
-                    return student;
-                })
-                .Where(student => student.Grades.Any())
-                .ToList();
-        }
 
-        public static List<StudentModel> FilterStudentsAndGradesByFacultyNumber(string facultyNumber)
-        {
-            return GetAllUsers()
-                .Where(student => student.FacultyNumber == facultyNumber)
-                .ToList();
-        }
-
-        public static List<StudentModel> FilterBySubject(string subject)
-        {
-           
-            return GetAllUsers()
-                .Select(student =>
-                {
-                    student.Grades = student.Grades
-                        .Where(grade => grade.Subject.Equals(subject, StringComparison.OrdinalIgnoreCase))
-                        .ToList();
-                    return student;
-                })
-                .Where(student => student.Grades.Any()) 
-                .ToList();
-        }
-*/
-
-
-
-
+       
 
     }
 

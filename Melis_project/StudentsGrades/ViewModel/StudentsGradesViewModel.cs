@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml.Linq;
 
 namespace StudentsGrades.ViewModel
 {
@@ -204,7 +205,16 @@ namespace StudentsGrades.ViewModel
 
             if (!string.IsNullOrEmpty(FilterSubject))
             {
-                filteredStudents = filteredStudents.Where(student => student.Grades.Any(grade => grade.Subject == FilterSubject)).ToList();
+                filteredStudents = filteredStudents
+                .Select(student =>
+                {
+                    student.Grades = student.Grades
+                        .Where(grade => grade.Subject.Equals(FilterSubject, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                    return student;
+                })
+                .Where(student => student.Grades.Any())
+                .ToList(); ;
             }
             if (FilterYear != 0)
                 
@@ -212,13 +222,31 @@ namespace StudentsGrades.ViewModel
                 bool isFilterYearContained = filteredStudents.Any(student => student.Grades.Any(grade => grade.Year == FilterYear));
                 if (isFilterYearContained)
                 {
-                    filteredStudents = filteredStudents.Where(student => student.Grades.Any(grade => grade.Year == FilterYear)).ToList();
+                    filteredStudents = filteredStudents
+                .Select(student =>
+                {
+                    student.Grades = student.Grades
+                        .Where(grade => grade.Date.Year == FilterYear)
+                        .ToList();
+                    return student;
+                })
+                .Where(student => student.Grades.Any())
+                .ToList(); ;
                 }
                 else
                 {
                     int lastYearWithResults = FindLastYearWithResults(StudentGradeService.GetAllUsers(), FilterFacultyNumber, FilterSubject);
                     
-                    filteredStudents = filteredStudents.Where(student => student.Grades.Any(grade => grade.Year == lastYearWithResults)).ToList();
+                    filteredStudents = filteredStudents
+                .Select(student =>
+                {
+                    student.Grades = student.Grades
+                        .Where(grade => grade.Date.Year == lastYearWithResults)
+                        .ToList();
+                    return student;
+                })
+                .Where(student => student.Grades.Any())
+                .ToList(); ;
                 }
             }
 
@@ -258,6 +286,7 @@ namespace StudentsGrades.ViewModel
 
 
     }
+
 
 
 
