@@ -235,13 +235,13 @@ namespace StudentsGrades.ViewModel
                 }
                 else
                 {
-                    int lastYearWithResults = FindLastYearWithResults(StudentGradeService.GetAllUsers(), FilterFacultyNumber, FilterSubject);
+                    int lastYearWithResults = FindLastYearWithResults(filteredStudents);
                     
                     filteredStudents = filteredStudents
                 .Select(student =>
                 {
                     student.Grades = student.Grades
-                        .Where(grade => grade.Date.Year == lastYearWithResults)
+                        .Where(grade => grade.Year == lastYearWithResults)
                         .ToList();
                     return student;
                 })
@@ -264,22 +264,9 @@ namespace StudentsGrades.ViewModel
             Students = new ObservableCollection<StudentModel>(StudentGradeService.GetAllUsers());
         }
 
-        private int FindLastYearWithResults(IEnumerable<StudentModel> students, string facultyNumber = null, string subject = null)
+        private int FindLastYearWithResults(IEnumerable<StudentModel> students)
         {
-            var filteredStudents = students;
-
-            if (!string.IsNullOrEmpty(facultyNumber))
-            {
-                filteredStudents = filteredStudents.Where(student => student.FacultyNumber == facultyNumber).ToList();
-            }
-
-            if (!string.IsNullOrEmpty(subject))
-            {
-                filteredStudents = filteredStudents.Where(student => student.Grades.Any(grade => grade.Subject == subject)).ToList();
-            }
-
-            int lastYear = filteredStudents.SelectMany(student => student.Grades).Max(grade => grade.Year);
-            return lastYear;
+            return students.SelectMany(student => student.Grades).Max(grade => grade.Date.Year);
         }
        
 
