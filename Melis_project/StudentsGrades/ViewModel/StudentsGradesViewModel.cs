@@ -196,8 +196,6 @@ namespace StudentsGrades.ViewModel
         {
             var filteredStudents = StudentGradeService.GetAllUsers();
 
-            
-
             if (!string.IsNullOrEmpty(FilterFacultyNumber))
             {
                 filteredStudents = FilterServices<StudentModel>.FilterByDifferentCriteria(filteredStudents, student => student.FacultyNumber == FilterFacultyNumber);
@@ -205,38 +203,24 @@ namespace StudentsGrades.ViewModel
 
             if (!string.IsNullOrEmpty(FilterSubject))
             {
-                filteredStudents = FilterServices<StudentModel>.FilterBySubject(filteredStudents, student => student.Grades.Select(grade => grade.Subject).ToList(), FilterSubject);
+                filteredStudents = FilterServices<StudentModel>.FilterBySubject(filteredStudents, student => student.Grades.Select(grade => grade.Subject), FilterSubject);
                 foreach (var student in filteredStudents)
                 {
-                    student.Grades = FilterServices<GradeModel>.FilterByDifferentCriteria(student.Grades, grade => grade.Subject == FilterSubject);
+                    // student.Grades = FilterServices<GradeModel>.FilterByDifferentCriteria(student.Grades, grade => grade.Subject == FilterSubject);
+                    student.Grades = FilterServices<GradeModel>.FilterBySubject(student.Grades, grade => new List<string> { grade.Subject }, FilterSubject);
                 }
             }
             if (FilterYear != 0)
-                
+
             {
-               
-                bool isFilterYearContained = filteredStudents.Any(student => student.Grades.Any(grade => grade.Year == FilterYear));
-                if (isFilterYearContained)
+                filteredStudents = FilterServices<StudentModel>.FilterByYear(filteredStudents, student => student.Grades.Select(grade => grade.Year), FilterYear);
+                foreach (var student in filteredStudents)
                 {
-                    filteredStudents = FilterServices<StudentModel>.FilterByYear(filteredStudents, student => student.Grades.Select(grade => grade.Year), FilterYear);
-                    foreach (var student in filteredStudents)
-                    {
-                        student.Grades = FilterServices<GradeModel>.FilterByDifferentCriteria(student.Grades, grade => grade.Year == FilterYear);
-                    }
+                    student.Grades = FilterServices<GradeModel>.FilterByYear(student.Grades, grade => new List<int> { grade.Year }, FilterYear);
+
                 }
-                else
-                {
-                    int lastYearWithResults = FindLastYearWithResults(filteredStudents);
-                    filteredStudents = FilterServices<StudentModel>.FilterByYear(filteredStudents, student => student.Grades.Select(grade => grade.Year), lastYearWithResults);
-                    foreach (var student in filteredStudents)
-                    {
-                        student.Grades = FilterServices<GradeModel>.FilterByDifferentCriteria(student.Grades, grade => grade.Year == lastYearWithResults);
-                    }
-                }
+              
             }
-
-            
-
             Students = new ObservableCollection<StudentModel>(filteredStudents);
         }
 

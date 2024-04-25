@@ -26,9 +26,22 @@ namespace StudentsGrades.Services
 
         public static List<T> FilterByYear<T>(List<T> items, Func<T, IEnumerable<int>> yearAccessor, int filterYear)
         {
-            return items
+            var filtered =  items
                 .Where(item => yearAccessor(item).Any(year => year == filterYear))
                 .ToList();
+           
+            if (filtered.Count == 0)
+            {
+                int lastYear = GetLastYearWithResult(items, yearAccessor);
+                filtered = items
+                    .Where(item => yearAccessor(item).Any(year => year == lastYear))
+                    .ToList();
+            }
+            return filtered;
+        }
+         private static int GetLastYearWithResult<T>(List<T> items, Func<T, IEnumerable<int>> yearAccessor)
+        {
+            return items.SelectMany(item => yearAccessor(item)).Max();
         }
 
 
