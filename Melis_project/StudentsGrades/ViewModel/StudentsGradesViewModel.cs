@@ -200,59 +200,49 @@ namespace StudentsGrades.ViewModel
 
             if (!string.IsNullOrEmpty(FilterFacultyNumber))
             {
-                filteredStudents = filteredStudents.Where(student => student.FacultyNumber == FilterFacultyNumber).ToList();
+                filteredStudents = FilterServices<StudentModel>.FilterByDifferentCriteria(filteredStudents, student => student.FacultyNumber == FilterFacultyNumber);
             }
 
             if (!string.IsNullOrEmpty(FilterSubject))
             {
-                filteredStudents = filteredStudents
-                .Select(student =>
+                filteredStudents = FilterServices<StudentModel>.FilterBySubject(filteredStudents, student => student.Grades.Select(grade => grade.Subject).ToList(), FilterSubject);
+                foreach (var student in filteredStudents)
                 {
-                    student.Grades = student.Grades
-                        .Where(grade => grade.Subject.Equals(FilterSubject, StringComparison.OrdinalIgnoreCase))
-                        .ToList();
-                    return student;
-                })
-                .Where(student => student.Grades.Any())
-                .ToList(); ;
+                    student.Grades = FilterServices<GradeModel>.FilterByDifferentCriteria(student.Grades, grade => grade.Subject == FilterSubject);
+                }
             }
             if (FilterYear != 0)
                 
             {
+               
                 bool isFilterYearContained = filteredStudents.Any(student => student.Grades.Any(grade => grade.Year == FilterYear));
                 if (isFilterYearContained)
                 {
-                    filteredStudents = filteredStudents
-                .Select(student =>
-                {
-                    student.Grades = student.Grades
-                        .Where(grade => grade.Date.Year == FilterYear)
-                        .ToList();
-                    return student;
-                })
-                .Where(student => student.Grades.Any())
-                .ToList(); ;
+                    filteredStudents = FilterServices<StudentModel>.FilterByYear(filteredStudents, student => student.Grades.Select(grade => grade.Year), FilterYear);
+                    foreach (var student in filteredStudents)
+                    {
+                        student.Grades = FilterServices<GradeModel>.FilterByDifferentCriteria(student.Grades, grade => grade.Year == FilterYear);
+                    }
                 }
                 else
                 {
                     int lastYearWithResults = FindLastYearWithResults(filteredStudents);
-                    
-                    filteredStudents = filteredStudents
-                .Select(student =>
-                {
-                    student.Grades = student.Grades
-                        .Where(grade => grade.Year == lastYearWithResults)
-                        .ToList();
-                    return student;
-                })
-                .Where(student => student.Grades.Any())
-                .ToList(); ;
+                    filteredStudents = FilterServices<StudentModel>.FilterByYear(filteredStudents, student => student.Grades.Select(grade => grade.Year), lastYearWithResults);
+                    foreach (var student in filteredStudents)
+                    {
+                        student.Grades = FilterServices<GradeModel>.FilterByDifferentCriteria(student.Grades, grade => grade.Year == lastYearWithResults);
+                    }
                 }
             }
 
             
 
             Students = new ObservableCollection<StudentModel>(filteredStudents);
+        }
+
+        private int FindLastYearWithResults(IEnumerable<StudentModel> students)
+        {
+            return students.SelectMany(student => student.Grades).Max(grade => grade.Year);
         }
 
         public ICommand ClearFiltersCommand { get; }
@@ -263,13 +253,6 @@ namespace StudentsGrades.ViewModel
             FilterSubject = null;
             Students = new ObservableCollection<StudentModel>(StudentGradeService.GetAllUsers());
         }
-
-        private int FindLastYearWithResults(IEnumerable<StudentModel> students)
-        {
-            return students.SelectMany(student => student.Grades).Max(grade => grade.Date.Year);
-        }
-       
-
 
 
     }
