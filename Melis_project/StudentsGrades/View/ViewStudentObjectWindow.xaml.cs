@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentsGrades.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace StudentsGrades.View
         public ViewStudentObjectWindow()
         {
             InitializeComponent();
+            DataContext = new StudentSubjectViewModel();
         }
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
