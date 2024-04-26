@@ -224,11 +224,6 @@ namespace StudentsGrades.ViewModel
             Students = new ObservableCollection<StudentModel>(filteredStudents);
         }
 
-        private int FindLastYearWithResults(IEnumerable<StudentModel> students)
-        {
-            return students.SelectMany(student => student.Grades).Max(grade => grade.Year);
-        }
-
         public ICommand ClearFiltersCommand { get; }
         private void ClearFilters(object parameter)
         {
@@ -240,9 +235,6 @@ namespace StudentsGrades.ViewModel
 
 
     }
-
-
-
 
 }
 
