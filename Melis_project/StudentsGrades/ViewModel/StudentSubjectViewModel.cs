@@ -75,11 +75,11 @@ namespace StudentsGrades.ViewModel
             var filteredStudents = StudentGradeService.GetAllUsers();
             if (!string.IsNullOrEmpty(FilterFacultyNumber))
             {
-                filteredStudents = filteredStudents.Where(student => student.FacultyNumber == FilterFacultyNumber).ToList();
+                filteredStudents = FilterServices<StudentModel>.FilterByDifferentCriteria(filteredStudents, student => student.FacultyNumber == FilterFacultyNumber);
             }
             if (FilterYear != 0)
             {
-                filteredStudents = filteredStudents.Where(student => student.Grades.Any(grade => grade.Year == FilterYear)).ToList();
+                filteredStudents = FilterServices<StudentModel>.FilterByYear(filteredStudents, student => student.Grades.Select(grade => grade.Year), FilterYear);
             }
 
             

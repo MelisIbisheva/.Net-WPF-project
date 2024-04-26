@@ -5,16 +5,16 @@ winexe
 C#
 .cs
 D:\github_repository_clone\.Net-WPF-project\Melis_project\StudentsGrades\obj\Debug\net6.0-windows\
-StudentsGrades
+StudentsGrades_rqjhzkhy_wpftmp
 none
 false
-TRACE;DEBUG;NET;NET6_0;NETCOREAPP
+TRACE;RELEASE;NET;NET6_0;NETCOREAPP
 D:\github_repository_clone\.Net-WPF-project\Melis_project\StudentsGrades\App.xaml
 5-1273117329
 
-181880921212
-212-57643844
+25-1533698870
+424-115287688
 View\AddNewStudentWindow.xaml;View\AddStudentGradeWindow.xaml;View\MainWindow.xaml;View\ViewStudentObjectWindow.xaml;View\ViewStudentsGrades.xaml;
 
-False
+True
 
