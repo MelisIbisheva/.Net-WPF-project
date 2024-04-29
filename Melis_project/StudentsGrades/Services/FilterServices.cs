@@ -12,7 +12,7 @@ namespace StudentsGrades.Services
         {
             return data.Where(filterCriteria).ToList();
         }
-        public static List<T> FilterByStringParameter<T>(List<T> items, Func<T, IEnumerable<string>> subjectAccessor, string filterParameter)
+        public static List<T> FilterByStringParameter<T>(List<T> items, Func<T, IEnumerable<string>> filterAccessor, string filterParameter)
         {
             if (string.IsNullOrEmpty(filterParameter))
             {
@@ -20,7 +20,7 @@ namespace StudentsGrades.Services
             }
 
             return items
-              .Where(item => subjectAccessor(item).Any(subject => subject.Equals(filterParameter, StringComparison.OrdinalIgnoreCase)))
+              .Where(item => filterAccessor(item).Any(subject => subject.Equals(filterParameter, StringComparison.OrdinalIgnoreCase)))
                .ToList();
         }
 
@@ -43,8 +43,6 @@ namespace StudentsGrades.Services
         {
             return items.SelectMany(item => yearAccessor(item)).Max();
         }
-
-
 
 
     }
