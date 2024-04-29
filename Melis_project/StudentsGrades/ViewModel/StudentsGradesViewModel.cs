@@ -203,11 +203,11 @@ namespace StudentsGrades.ViewModel
 
             if (!string.IsNullOrEmpty(FilterSubject))
             {
-                filteredStudents = FilterServices<StudentModel>.FilterBySubject(filteredStudents, student => student.Grades.Select(grade => grade.Subject), FilterSubject);
+                filteredStudents = FilterServices<StudentModel>.FilterByStringParameter(filteredStudents, student => student.Grades.Select(grade => grade.Subject), FilterSubject);
                 foreach (var student in filteredStudents)
                 {
                     // student.Grades = FilterServices<GradeModel>.FilterByDifferentCriteria(student.Grades, grade => grade.Subject == FilterSubject);
-                    student.Grades = FilterServices<GradeModel>.FilterBySubject(student.Grades, grade => new List<string> { grade.Subject }, FilterSubject);
+                    student.Grades = FilterServices<GradeModel>.FilterByStringParameter(student.Grades, grade => new List<string> { grade.Subject }, FilterSubject);
                 }
             }
             if (FilterYear != 0)

@@ -5,6 +5,6 @@
     "\\StudentsGrades\\View",
     "\\StudentsGrades\\ViewModel"
   ],
-  "SelectedNode": "\\StudentsGrades\\View\\ViewStudentsGrades.xaml",
+  "SelectedNode": "\\StudentsGrades\\ViewModel\\StudentSubjectViewModel.cs",
   "PreviewInSolutionExplorer": false
 }

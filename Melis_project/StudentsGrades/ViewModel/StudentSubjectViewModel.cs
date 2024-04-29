@@ -82,13 +82,11 @@ namespace StudentsGrades.ViewModel
                 filteredStudents = FilterServices<StudentModel>.FilterByYear(filteredStudents, student => student.Grades.Select(grade => grade.Year), FilterYear);
             }
 
-            
-            var uniqueSubjects = filteredStudents
-                .SelectMany(student => student.Grades)
-                .Where(grade => grade.Year == FilterYear)
-                .Select(grade => grade.Subject)
-                .Distinct()
-                .ToList();
+
+            var uniqueSubjects = FilterServices<GradeModel>.FilterByDifferentCriteria(
+                  filteredStudents.SelectMany(student => student.Grades),
+                  grade => grade.Year == FilterYear
+                  ).Select(grade => grade.Subject).Distinct();
 
             UniqueSubjects = new ObservableCollection<string>(uniqueSubjects);
 

@@ -12,15 +12,15 @@ namespace StudentsGrades.Services
         {
             return data.Where(filterCriteria).ToList();
         }
-        public static List<T> FilterBySubject<T>(List<T> items, Func<T, IEnumerable<string>> subjectAccessor, string filterSubject)
+        public static List<T> FilterByStringParameter<T>(List<T> items, Func<T, IEnumerable<string>> subjectAccessor, string filterParameter)
         {
-            if (string.IsNullOrEmpty(filterSubject))
+            if (string.IsNullOrEmpty(filterParameter))
             {
                 return new List<T>();
             }
 
             return items
-              .Where(item => subjectAccessor(item).Any(subject => subject.Equals(filterSubject, StringComparison.OrdinalIgnoreCase)))
+              .Where(item => subjectAccessor(item).Any(subject => subject.Equals(filterParameter, StringComparison.OrdinalIgnoreCase)))
                .ToList();
         }
 
