@@ -16,7 +16,7 @@ using System.Xml.Linq;
 
 namespace StudentsGrades.ViewModel
 {
-    public class StudentsGradesViewModel : INotifyPropertyChanged
+    public class StudentsGradesViewModel : INotifyPropertyChanged, IFilterService
     {
         private int _selectedStudentId;
         private string _selectedStudentFirstName;
@@ -192,7 +192,7 @@ namespace StudentsGrades.ViewModel
         }
 
         public ICommand FilterCommand { get; }
-        private void Filter(object parameter)
+         public void Filter(object parameter = null)
         {
             var filteredStudents = StudentGradeService.GetAllUsers();
 
@@ -233,7 +233,7 @@ namespace StudentsGrades.ViewModel
             Students = new ObservableCollection<StudentModel>(StudentGradeService.GetAllUsers());
         }
 
-
+        
     }
 
 }

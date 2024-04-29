@@ -15,7 +15,7 @@ using System.Windows.Input;
 
 namespace StudentsGrades.ViewModel
 {
-    public class StudentSubjectViewModel : INotifyPropertyChanged
+    public class StudentSubjectViewModel : INotifyPropertyChanged, IFilterService
     {
         private int _filterYear;
         private string _filterFacultyNumber;
@@ -70,7 +70,7 @@ namespace StudentsGrades.ViewModel
                 OnPropertyChanged();
             }
         }
-        private void Filter(object parameter)
+        public void Filter(object parameter = null)
         {
             var filteredStudents = StudentGradeService.GetAllUsers();
             if (!string.IsNullOrEmpty(FilterFacultyNumber))
